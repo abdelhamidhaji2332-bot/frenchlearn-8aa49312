@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
@@ -111,17 +112,15 @@ const Index = () => {
                       <p className="text-xl text-primary-foreground/80 mb-8">
                         Join thousands of learners mastering French today.
                       </p>
-                      <motion.a
-                        href="/login"
+                      <Link
+                        to="/login"
                         className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-glow transition-all hover:-translate-y-1"
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
                       >
                         Créer un compte gratuit
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
-                      </motion.a>
+                      </Link>
                     </div>
                   </motion.div>
                 </div>
