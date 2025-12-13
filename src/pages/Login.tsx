@@ -3,8 +3,7 @@ import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { GlitchLoginEffect } from "@/components/GlitchLoginEffect";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Mail, Lock, User, Phone, ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -15,7 +14,6 @@ const Login = () => {
   const [mode, setMode] = useState<AuthMode>("login");
   const [signupMethod, setSignupMethod] = useState<SignupMethod>("email");
   const [showPassword, setShowPassword] = useState(false);
-  const [showGlitch, setShowGlitch] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -30,18 +28,24 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate login - trigger glitch effect
-    setShowGlitch(true);
-  };
+    // Simulate a brief delay
+    await new Promise(resolve => setTimeout(resolve, 800));
 
-  const handleGlitchComplete = () => {
-    setShowGlitch(false);
+    // Check for admin credentials
+    if (email === "falcon@gmail.com" && password === "hajihaji") {
+      toast({
+        title: "Bienvenue Admin!",
+        description: "You have successfully logged in as administrator.",
+      });
+      navigate("/admin");
+    } else {
+      toast({
+        title: "Bienvenue!",
+        description: "You have successfully logged in.",
+      });
+      navigate("/dashboard");
+    }
     setIsLoading(false);
-    toast({
-      title: "Bienvenue!",
-      description: "You have successfully logged in.",
-    });
-    navigate("/dashboard");
   };
 
   const handleGoogleSignup = () => {
@@ -52,10 +56,7 @@ const Login = () => {
   };
 
   return (
-    <>
-      <GlitchLoginEffect isActive={showGlitch} onComplete={handleGlitchComplete} />
-
-      <div className="min-h-screen flex items-center justify-center bg-hero-pattern relative overflow-hidden px-4 py-8">
+    <div className="min-h-screen flex items-center justify-center bg-hero-pattern relative overflow-hidden px-4 py-8">
         {/* Background effects */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
         <motion.div
@@ -347,7 +348,6 @@ const Login = () => {
           </p>
         </div>
       </div>
-    </>
   );
 };
 
