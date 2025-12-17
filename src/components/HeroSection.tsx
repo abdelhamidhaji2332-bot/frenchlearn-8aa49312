@@ -40,7 +40,7 @@ export const HeroSection = () => {
             <div className="flex -space-x-2">
               <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-xs text-primary-foreground">A</div>
               <div className="w-6 h-6 rounded-full bg-secondary flex items-center justify-center text-xs text-secondary-foreground">B</div>
-              <div className="w-6 h-6 rounded-full bg-french-red flex items-center justify-center text-xs text-primary-foreground">C</div>
+              <div className="w-6 h-6 rounded-full bg-destructive flex items-center justify-center text-xs text-destructive-foreground">C</div>
             </div>
             <span className="text-sm text-muted-foreground">
               <span className="font-semibold text-foreground">50,000+</span> learners worldwide
@@ -75,7 +75,7 @@ export const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
-            <Link to="/login">
+            <Link to="/auth">
               <Button variant="hero" size="xl" className="group">
                 Commencer Gratuitement
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

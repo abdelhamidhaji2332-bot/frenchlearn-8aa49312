@@ -1,12 +1,14 @@
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Menu, X, BookOpen, User } from "lucide-react";
+import { Menu, X, BookOpen, User, LogOut, LayoutDashboard } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { user, profile, signOut } = useAuth();
 
   const navItems = [
     { href: "/", label: "Accueil", labelEn: "Home" },
@@ -15,6 +17,11 @@ export const Navbar = () => {
     { href: "/vocabulary", label: "Vocabulaire", labelEn: "Vocabulary" },
   ];
 
+  const handleSignOut = async () => {
+    await signOut();
+    setIsOpen(false);
+  };
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-xl border-b border-border/50">
       <div className="container mx-auto px-4">
@@ -22,13 +29,13 @@ export const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
             <motion.div
-              className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-soft group-hover:shadow-glow transition-shadow"
+              className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-soft group-hover:shadow-warm transition-shadow"
               whileHover={{ scale: 1.05 }}
             >
               <span className="text-xl font-display font-bold text-primary-foreground">F</span>
             </motion.div>
             <span className="text-xl font-display font-semibold hidden sm:block">
-              Français
+              FrenchMaster
             </span>
           </Link>
 
@@ -48,17 +55,39 @@ export const Navbar = () => {
 
           {/* Auth Buttons */}
           <div className="hidden md:flex items-center gap-2">
-            <Link to="/login">
-              <Button variant="ghost" size="sm">
-                <User className="w-4 h-4 mr-2" />
-                Connexion
-              </Button>
-            </Link>
-            <Link to="/login">
-              <Button variant="hero" size="sm">
-                Commencer
-              </Button>
-            </Link>
+            {user ? (
+              <>
+                <Link to="/dashboard">
+                  <Button variant="ghost" size="sm">
+                    <LayoutDashboard className="w-4 h-4 mr-2" />
+                    Dashboard
+                  </Button>
+                </Link>
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted">
+                  <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center">
+                    <User className="w-4 h-4 text-primary" />
+                  </div>
+                  <span className="text-sm font-medium">{profile?.username || "User"}</span>
+                </div>
+                <Button variant="ghost" size="sm" onClick={handleSignOut}>
+                  <LogOut className="w-4 h-4" />
+                </Button>
+              </>
+            ) : (
+              <>
+                <Link to="/auth">
+                  <Button variant="ghost" size="sm">
+                    <User className="w-4 h-4 mr-2" />
+                    Connexion
+                  </Button>
+                </Link>
+                <Link to="/auth">
+                  <Button size="sm" className="btn-academic">
+                    Commencer
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -95,16 +124,33 @@ export const Navbar = () => {
                 </Link>
               ))}
               <div className="pt-4 mt-4 border-t border-border/50 flex flex-col gap-2">
-                <Link to="/login" onClick={() => setIsOpen(false)}>
-                  <Button variant="outline" className="w-full">
-                    Connexion
-                  </Button>
-                </Link>
-                <Link to="/login" onClick={() => setIsOpen(false)}>
-                  <Button variant="hero" className="w-full">
-                    Commencer
-                  </Button>
-                </Link>
+                {user ? (
+                  <>
+                    <Link to="/dashboard" onClick={() => setIsOpen(false)}>
+                      <Button variant="outline" className="w-full">
+                        <LayoutDashboard className="w-4 h-4 mr-2" />
+                        Dashboard
+                      </Button>
+                    </Link>
+                    <Button variant="ghost" className="w-full" onClick={handleSignOut}>
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Sign Out
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/auth" onClick={() => setIsOpen(false)}>
+                      <Button variant="outline" className="w-full">
+                        Connexion
+                      </Button>
+                    </Link>
+                    <Link to="/auth" onClick={() => setIsOpen(false)}>
+                      <Button className="w-full btn-academic">
+                        Commencer
+                      </Button>
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </motion.div>

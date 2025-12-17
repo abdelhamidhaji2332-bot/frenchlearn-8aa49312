@@ -14,16 +14,211 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      achievements: {
+        Row: {
+          description: string | null
+          icon: string | null
+          id: string
+          name: string
+          requirement_type: string
+          requirement_value: number
+          xp_reward: number | null
+        }
+        Insert: {
+          description?: string | null
+          icon?: string | null
+          id?: string
+          name: string
+          requirement_type: string
+          requirement_value: number
+          xp_reward?: number | null
+        }
+        Update: {
+          description?: string | null
+          icon?: string | null
+          id?: string
+          name?: string
+          requirement_type?: string
+          requirement_value?: number
+          xp_reward?: number | null
+        }
+        Relationships: []
+      }
+      lessons: {
+        Row: {
+          category: string
+          content: Json | null
+          created_at: string | null
+          description: string | null
+          id: string
+          level: string
+          order_index: number | null
+          title: string
+          xp_reward: number | null
+        }
+        Insert: {
+          category: string
+          content?: Json | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          level: string
+          order_index?: number | null
+          title: string
+          xp_reward?: number | null
+        }
+        Update: {
+          category?: string
+          content?: Json | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          level?: string
+          order_index?: number | null
+          title?: string
+          xp_reward?: number | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string | null
+          id: string
+          last_activity_date: string | null
+          level: string | null
+          streak_days: number | null
+          updated_at: string | null
+          user_id: string
+          username: string | null
+          xp_points: number | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string | null
+          id?: string
+          last_activity_date?: string | null
+          level?: string | null
+          streak_days?: number | null
+          updated_at?: string | null
+          user_id: string
+          username?: string | null
+          xp_points?: number | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string | null
+          id?: string
+          last_activity_date?: string | null
+          level?: string | null
+          streak_days?: number | null
+          updated_at?: string | null
+          user_id?: string
+          username?: string | null
+          xp_points?: number | null
+        }
+        Relationships: []
+      }
+      user_achievements: {
+        Row: {
+          achievement_id: string
+          earned_at: string | null
+          id: string
+          user_id: string
+        }
+        Insert: {
+          achievement_id: string
+          earned_at?: string | null
+          id?: string
+          user_id: string
+        }
+        Update: {
+          achievement_id?: string
+          earned_at?: string | null
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_achievements_achievement_id_fkey"
+            columns: ["achievement_id"]
+            isOneToOne: false
+            referencedRelation: "achievements"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_progress: {
+        Row: {
+          completed: boolean | null
+          completed_at: string | null
+          created_at: string | null
+          id: string
+          lesson_id: string
+          score: number | null
+          user_id: string
+        }
+        Insert: {
+          completed?: boolean | null
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          lesson_id: string
+          score?: number | null
+          user_id: string
+        }
+        Update: {
+          completed?: boolean | null
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          lesson_id?: string
+          score?: number | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_progress_lesson_id_fkey"
+            columns: ["lesson_id"]
+            isOneToOne: false
+            referencedRelation: "lessons"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "teacher" | "student"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +345,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "teacher", "student"],
+    },
   },
 } as const
