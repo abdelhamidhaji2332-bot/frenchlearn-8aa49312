@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
-        display: ["Playfair Display", "Georgia", "serif"],
+        sans: ["Source Sans 3", "system-ui", "sans-serif"],
+        display: ["Libre Baskerville", "Georgia", "serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -55,12 +55,13 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        french: {
-          navy: "hsl(var(--french-navy))",
-          gold: "hsl(var(--french-gold))",
-          cream: "hsl(var(--french-cream))",
-          red: "hsl(var(--french-red))",
-          lightBlue: "hsl(var(--french-light-blue))",
+        academic: {
+          burgundy: "hsl(var(--academic-burgundy))",
+          gold: "hsl(var(--academic-gold))",
+          cream: "hsl(var(--academic-cream))",
+          brown: "hsl(var(--academic-brown))",
+          sage: "hsl(var(--academic-sage))",
+          paper: "hsl(var(--academic-paper))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
@@ -107,9 +108,13 @@ export default {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
         },
-        typewriter: {
-          "0%": { width: "0" },
-          "100%": { width: "100%" },
+        "bounce-subtle": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-5px)" },
+        },
+        "pulse-glow": {
+          "0%, 100%": { boxShadow: "0 0 20px hsl(var(--secondary) / 0.3)" },
+          "50%": { boxShadow: "0 0 40px hsl(var(--secondary) / 0.5)" },
         },
       },
       animation: {
@@ -120,11 +125,12 @@ export default {
         "scale-in": "scale-in 0.5s ease-out forwards",
         "slide-up": "slide-up 0.8s ease-out forwards",
         shimmer: "shimmer 2s infinite linear",
-        typewriter: "typewriter 3s steps(40) forwards",
+        "bounce-subtle": "bounce-subtle 2s ease-in-out infinite",
+        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "hero-pattern": "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23002654' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
+        "hero-pattern": "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23722F37' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
       },
     },
   },

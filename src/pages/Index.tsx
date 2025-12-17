@@ -113,7 +113,7 @@ const Index = () => {
                         Join thousands of learners mastering French today.
                       </p>
                       <Link
-                        to="/login"
+                        to="/auth"
                         className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-glow transition-all hover:-translate-y-1"
                       >
                         Créer un compte gratuit
