@@ -119,6 +119,78 @@ export type Database = {
         }
         Relationships: []
       }
+      stories: {
+        Row: {
+          audio_url: string | null
+          author: string | null
+          category: string | null
+          content: string
+          content_arabic: string | null
+          created_at: string | null
+          id: string
+          image_url: string | null
+          level: string
+          read_time_minutes: number | null
+          title: string
+        }
+        Insert: {
+          audio_url?: string | null
+          author?: string | null
+          category?: string | null
+          content: string
+          content_arabic?: string | null
+          created_at?: string | null
+          id?: string
+          image_url?: string | null
+          level: string
+          read_time_minutes?: number | null
+          title: string
+        }
+        Update: {
+          audio_url?: string | null
+          author?: string | null
+          category?: string | null
+          content?: string
+          content_arabic?: string | null
+          created_at?: string | null
+          id?: string
+          image_url?: string | null
+          level?: string
+          read_time_minutes?: number | null
+          title?: string
+        }
+        Relationships: []
+      }
+      teachers: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          created_at: string | null
+          email: string | null
+          id: string
+          name: string
+          specialization: string[] | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          name: string
+          specialization?: string[] | null
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          name?: string
+          specialization?: string[] | null
+        }
+        Relationships: []
+      }
       user_achievements: {
         Row: {
           achievement_id: string
@@ -201,6 +273,51 @@ export type Database = {
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
+        }
+        Relationships: []
+      }
+      vocabulary: {
+        Row: {
+          arabic: string | null
+          audio_url: string | null
+          category: string
+          created_at: string | null
+          english: string
+          example_sentence: string | null
+          example_translation: string | null
+          french: string
+          id: string
+          image_url: string | null
+          level: string | null
+          pronunciation: string | null
+        }
+        Insert: {
+          arabic?: string | null
+          audio_url?: string | null
+          category: string
+          created_at?: string | null
+          english: string
+          example_sentence?: string | null
+          example_translation?: string | null
+          french: string
+          id?: string
+          image_url?: string | null
+          level?: string | null
+          pronunciation?: string | null
+        }
+        Update: {
+          arabic?: string | null
+          audio_url?: string | null
+          category?: string
+          created_at?: string | null
+          english?: string
+          example_sentence?: string | null
+          example_translation?: string | null
+          french?: string
+          id?: string
+          image_url?: string | null
+          level?: string | null
+          pronunciation?: string | null
         }
         Relationships: []
       }
