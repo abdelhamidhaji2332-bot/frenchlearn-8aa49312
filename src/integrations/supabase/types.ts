@@ -44,6 +44,44 @@ export type Database = {
         }
         Relationships: []
       }
+      lesson_sections: {
+        Row: {
+          content: Json
+          created_at: string | null
+          id: string
+          lesson_id: string
+          order_index: number | null
+          section_type: string
+          title: string | null
+        }
+        Insert: {
+          content: Json
+          created_at?: string | null
+          id?: string
+          lesson_id: string
+          order_index?: number | null
+          section_type: string
+          title?: string | null
+        }
+        Update: {
+          content?: Json
+          created_at?: string | null
+          id?: string
+          lesson_id?: string
+          order_index?: number | null
+          section_type?: string
+          title?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lesson_sections_lesson_id_fkey"
+            columns: ["lesson_id"]
+            isOneToOne: false
+            referencedRelation: "lessons"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       lessons: {
         Row: {
           category: string
@@ -118,6 +156,109 @@ export type Database = {
           xp_points?: number | null
         }
         Relationships: []
+      }
+      quiz_questions: {
+        Row: {
+          correct_answer: string | null
+          correct_answers: Json | null
+          created_at: string | null
+          explanation: string | null
+          id: string
+          image_url: string | null
+          options: Json | null
+          order_index: number | null
+          points: number | null
+          question_audio_text: string | null
+          question_text: string
+          question_type: string
+          quiz_id: string
+        }
+        Insert: {
+          correct_answer?: string | null
+          correct_answers?: Json | null
+          created_at?: string | null
+          explanation?: string | null
+          id?: string
+          image_url?: string | null
+          options?: Json | null
+          order_index?: number | null
+          points?: number | null
+          question_audio_text?: string | null
+          question_text: string
+          question_type: string
+          quiz_id: string
+        }
+        Update: {
+          correct_answer?: string | null
+          correct_answers?: Json | null
+          created_at?: string | null
+          explanation?: string | null
+          id?: string
+          image_url?: string | null
+          options?: Json | null
+          order_index?: number | null
+          points?: number | null
+          question_audio_text?: string | null
+          question_text?: string
+          question_type?: string
+          quiz_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quiz_questions_quiz_id_fkey"
+            columns: ["quiz_id"]
+            isOneToOne: false
+            referencedRelation: "quizzes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      quizzes: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          lesson_id: string | null
+          level: string
+          order_index: number | null
+          passing_score: number | null
+          quiz_type: string
+          time_limit_minutes: number | null
+          title: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          lesson_id?: string | null
+          level?: string
+          order_index?: number | null
+          passing_score?: number | null
+          quiz_type?: string
+          time_limit_minutes?: number | null
+          title: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          lesson_id?: string | null
+          level?: string
+          order_index?: number | null
+          passing_score?: number | null
+          quiz_type?: string
+          time_limit_minutes?: number | null
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quizzes_lesson_id_fkey"
+            columns: ["lesson_id"]
+            isOneToOne: false
+            referencedRelation: "lessons"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       stories: {
         Row: {
@@ -258,6 +399,53 @@ export type Database = {
           },
         ]
       }
+      user_quiz_attempts: {
+        Row: {
+          answers: Json | null
+          completed_at: string | null
+          id: string
+          max_score: number
+          passed: boolean | null
+          percentage: number
+          quiz_id: string
+          score: number
+          started_at: string | null
+          user_id: string
+        }
+        Insert: {
+          answers?: Json | null
+          completed_at?: string | null
+          id?: string
+          max_score?: number
+          passed?: boolean | null
+          percentage?: number
+          quiz_id: string
+          score?: number
+          started_at?: string | null
+          user_id: string
+        }
+        Update: {
+          answers?: Json | null
+          completed_at?: string | null
+          id?: string
+          max_score?: number
+          passed?: boolean | null
+          percentage?: number
+          quiz_id?: string
+          score?: number
+          started_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_quiz_attempts_quiz_id_fkey"
+            columns: ["quiz_id"]
+            isOneToOne: false
+            referencedRelation: "quizzes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           id: string
@@ -320,6 +508,38 @@ export type Database = {
           pronunciation?: string | null
         }
         Relationships: []
+      }
+      vocabulary_images: {
+        Row: {
+          created_at: string | null
+          id: string
+          image_data: string | null
+          prompt_used: string | null
+          vocabulary_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          image_data?: string | null
+          prompt_used?: string | null
+          vocabulary_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          image_data?: string | null
+          prompt_used?: string | null
+          vocabulary_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vocabulary_images_vocabulary_id_fkey"
+            columns: ["vocabulary_id"]
+            isOneToOne: false
+            referencedRelation: "vocabulary"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
