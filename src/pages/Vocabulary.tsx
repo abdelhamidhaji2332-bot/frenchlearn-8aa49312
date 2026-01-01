@@ -27,6 +27,11 @@ const categories = [
   { id: "colors", name: "Couleurs", nameEn: "Colors", icon: "🎨", color: "from-purple-500 to-violet-500" },
   { id: "numbers", name: "Nombres", nameEn: "Numbers", icon: "🔢", color: "from-blue-500 to-cyan-500" },
   { id: "travel", name: "Voyage", nameEn: "Travel", icon: "✈️", color: "from-teal-500 to-green-500" },
+  { id: "animals", name: "Animaux", nameEn: "Animals", icon: "🦁", color: "from-amber-500 to-yellow-500" },
+  { id: "body", name: "Corps", nameEn: "Body Parts", icon: "🫀", color: "from-red-500 to-pink-500" },
+  { id: "clothing", name: "Vêtements", nameEn: "Clothing", icon: "👕", color: "from-indigo-500 to-purple-500" },
+  { id: "weather", name: "Météo", nameEn: "Weather", icon: "🌤️", color: "from-sky-500 to-blue-500" },
+  { id: "time", name: "Temps", nameEn: "Time", icon: "⏰", color: "from-emerald-500 to-teal-500" },
 ];
 
 const Vocabulary = () => {
