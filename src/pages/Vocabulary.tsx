@@ -32,6 +32,18 @@ const categories = [
   { id: "clothing", name: "Vêtements", nameEn: "Clothing", icon: "👕", color: "from-indigo-500 to-purple-500" },
   { id: "weather", name: "Météo", nameEn: "Weather", icon: "🌤️", color: "from-sky-500 to-blue-500" },
   { id: "time", name: "Temps", nameEn: "Time", icon: "⏰", color: "from-emerald-500 to-teal-500" },
+  { id: "house", name: "Maison", nameEn: "House", icon: "🏠", color: "from-lime-500 to-green-500" },
+  { id: "school", name: "École", nameEn: "School", icon: "📚", color: "from-cyan-500 to-blue-500" },
+  { id: "professions", name: "Métiers", nameEn: "Professions", icon: "👔", color: "from-slate-500 to-gray-600" },
+  { id: "sports", name: "Sports", nameEn: "Sports", icon: "⚽", color: "from-green-500 to-emerald-500" },
+  { id: "nature", name: "Nature", nameEn: "Nature", icon: "🌿", color: "from-green-600 to-lime-500" },
+  { id: "emotions", name: "Émotions", nameEn: "Emotions", icon: "😊", color: "from-yellow-500 to-orange-500" },
+  { id: "daily", name: "Quotidien", nameEn: "Daily Routine", icon: "☀️", color: "from-amber-400 to-yellow-500" },
+  { id: "fruits", name: "Fruits", nameEn: "Fruits", icon: "🍎", color: "from-red-400 to-orange-500" },
+  { id: "vegetables", name: "Légumes", nameEn: "Vegetables", icon: "🥕", color: "from-orange-400 to-green-500" },
+  { id: "verbs", name: "Verbes", nameEn: "Verbs", icon: "💫", color: "from-violet-500 to-purple-600" },
+  { id: "transportation", name: "Transport", nameEn: "Transportation", icon: "🚗", color: "from-blue-500 to-indigo-500" },
+  { id: "places", name: "Lieux", nameEn: "Places", icon: "🏛️", color: "from-stone-500 to-amber-600" },
 ];
 
 const Vocabulary = () => {
