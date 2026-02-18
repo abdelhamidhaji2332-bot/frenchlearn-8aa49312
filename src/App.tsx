@@ -18,6 +18,7 @@ import Conjugator from "./pages/Conjugator";
 import Media from "./pages/Media";
 import Stories from "./pages/Stories";
 import Settings from "./pages/Settings";
+import Flashcards from "./pages/Flashcards";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -44,6 +45,7 @@ const App = () => (
             <Route path="/media" element={<Media />} />
             <Route path="/stories" element={<Stories />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/flashcards" element={<Flashcards />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
