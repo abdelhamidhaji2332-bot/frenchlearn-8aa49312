@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   ChevronLeft, ChevronRight, BookOpen, Volume2, 
-  CheckCircle2, Play, Pause, BookMarked
+  CheckCircle2, Play, Pause, BookMarked, Languages
 } from 'lucide-react';
 import { VocabularyCard } from './VocabularyCard';
 import { useTextToSpeech } from '@/hooks/useTextToSpeech';
@@ -13,7 +14,7 @@ import { cn } from '@/lib/utils';
 
 interface LessonSection {
   id: string;
-  section_type: 'intro' | 'vocabulary' | 'grammar' | 'dialogue' | 'exercise' | 'summary';
+  section_type: 'intro' | 'vocabulary' | 'grammar' | 'dialogue' | 'exercise' | 'summary' | 'conjugation';
   title?: string;
   content: {
     text?: string;
@@ -21,6 +22,16 @@ interface LessonSection {
     dialogueLines?: { speaker: string; text: string; translation: string }[];
     grammarRule?: { title: string; explanation: string; examples: { french: string; english: string }[] };
     tips?: string[];
+    conjugations?: {
+      verb: string;
+      meaning: string;
+      group: string;
+      tenses: {
+        name: string;
+        forms: { pronoun: string; form: string }[];
+        examples?: { french: string; english: string }[];
+      }[];
+    }[];
   };
 }
 
@@ -53,7 +64,6 @@ export const LessonViewer = ({
 
   const handleNextSection = () => {
     setCompletedSections(prev => new Set([...prev, currentSectionIndex]));
-    
     if (isLastSection) {
       onComplete?.();
     } else {
@@ -74,19 +84,19 @@ export const LessonViewer = ({
     switch (section_type) {
       case 'intro':
         return (
-          <div className="space-y-4">
-            <p className="text-lg leading-relaxed">{content.text}</p>
+          <div className="space-y-5">
+            <p className="text-lg leading-relaxed text-foreground/90">{content.text}</p>
             {content.tips && (
-              <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
-                <h4 className="font-semibold mb-2 flex items-center gap-2">
-                  <BookMarked className="w-4 h-4" />
+              <div className="bg-accent/50 border border-accent-foreground/10 rounded-xl p-5">
+                <h4 className="font-display font-semibold mb-3 flex items-center gap-2 text-accent-foreground">
+                  <BookMarked className="w-5 h-5" />
                   Learning Tips
                 </h4>
                 <ul className="space-y-2">
                   {content.tips.map((tip, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-sm">
-                      <span className="text-primary">•</span>
-                      {tip}
+                    <li key={idx} className="flex items-start gap-3 text-sm">
+                      <span className="w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">{idx + 1}</span>
+                      <span>{tip}</span>
                     </li>
                   ))}
                 </ul>
@@ -118,34 +128,115 @@ export const LessonViewer = ({
         const rule = content.grammarRule;
         return (
           <div className="space-y-6">
-            <div className="prose prose-sm dark:prose-invert max-w-none">
-              <h3 className="text-xl font-display font-semibold">{rule?.title}</h3>
-              <p className="text-muted-foreground">{rule?.explanation}</p>
+            <div className="p-5 rounded-xl bg-accent/30 border border-accent-foreground/10">
+              <h3 className="text-xl font-display font-bold text-accent-foreground mb-2">{rule?.title}</h3>
+              <p className="text-foreground/80 leading-relaxed">{rule?.explanation}</p>
             </div>
             
             <div className="space-y-3">
-              <h4 className="font-semibold">Examples:</h4>
+              <h4 className="font-display font-semibold text-lg flex items-center gap-2">
+                <span className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">📝</span>
+                Examples
+              </h4>
               {rule?.examples.map((example, idx) => (
-                <Card key={idx} variant="glass" className="overflow-hidden">
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-3">
-                      <div className="flex-1">
-                        <p className="font-medium text-primary">{example.french}</p>
-                        <p className="text-sm text-muted-foreground">{example.english}</p>
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: idx * 0.05 }}
+                >
+                  <Card variant="glass" className="overflow-hidden border-l-4 border-l-primary">
+                    <CardContent className="p-4">
+                      <div className="flex items-center gap-3">
+                        <div className="flex-1">
+                          <p className="font-semibold text-primary text-lg">{example.french}</p>
+                          <p className="text-sm text-muted-foreground mt-0.5">{example.english}</p>
+                        </div>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => speak(example.french)}
+                          disabled={isSpeaking}
+                          className="shrink-0"
+                        >
+                          <Volume2 className={cn("w-4 h-4", isSpeaking && "text-primary animate-pulse")} />
+                        </Button>
                       </div>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => speak(example.french)}
-                        disabled={isSpeaking}
-                      >
-                        <Volume2 className={cn("w-4 h-4", isSpeaking && "text-primary animate-pulse")} />
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                </motion.div>
               ))}
             </div>
+          </div>
+        );
+
+      case 'conjugation':
+        return (
+          <div className="space-y-8">
+            {content.conjugations?.map((verb, vIdx) => (
+              <div key={vIdx} className="space-y-4">
+                <div className="flex items-center gap-3 p-4 rounded-xl bg-primary/5 border border-primary/20">
+                  <Languages className="w-6 h-6 text-primary" />
+                  <div>
+                    <h3 className="text-2xl font-display font-bold text-primary">{verb.verb}</h3>
+                    <p className="text-sm text-muted-foreground">{verb.meaning} • {verb.group}</p>
+                  </div>
+                  <Button variant="ghost" size="icon" className="ml-auto" onClick={() => speak(verb.verb)}>
+                    <Volume2 className="w-5 h-5" />
+                  </Button>
+                </div>
+
+                <Tabs defaultValue={verb.tenses[0]?.name || "présent"} className="w-full">
+                  <TabsList className="flex flex-wrap h-auto gap-1 bg-muted/50 p-1 rounded-xl">
+                    {verb.tenses.map((tense) => (
+                      <TabsTrigger 
+                        key={tense.name} 
+                        value={tense.name}
+                        className="text-xs px-3 py-1.5 rounded-lg data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                      >
+                        {tense.name}
+                      </TabsTrigger>
+                    ))}
+                  </TabsList>
+                  {verb.tenses.map((tense) => (
+                    <TabsContent key={tense.name} value={tense.name} className="mt-4 space-y-4">
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                        {tense.forms.map((f, fIdx) => (
+                          <motion.div
+                            key={fIdx}
+                            initial={{ opacity: 0, y: 5 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: fIdx * 0.03 }}
+                            className="flex items-center gap-2 p-3 rounded-lg bg-card border border-border/50 hover:border-primary/30 transition-colors cursor-pointer group"
+                            onClick={() => speak(`${f.pronoun} ${f.form}`)}
+                          >
+                            <span className="text-muted-foreground text-sm w-8 shrink-0">{f.pronoun}</span>
+                            <span className="font-semibold text-primary group-hover:text-primary/80">{f.form}</span>
+                            <Volume2 className="w-3 h-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
+                          </motion.div>
+                        ))}
+                      </div>
+                      {tense.examples && tense.examples.length > 0 && (
+                        <div className="space-y-2 pt-2">
+                          <p className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Examples</p>
+                          {tense.examples.map((ex, eIdx) => (
+                            <div key={eIdx} className="flex items-center gap-3 p-3 rounded-lg bg-muted/30 border border-border/30">
+                              <div className="flex-1">
+                                <p className="font-medium text-sm">{ex.french}</p>
+                                <p className="text-xs text-muted-foreground">{ex.english}</p>
+                              </div>
+                              <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => speak(ex.french)}>
+                                <Volume2 className="w-3 h-3" />
+                              </Button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </TabsContent>
+                  ))}
+                </Tabs>
+              </div>
+            ))}
           </div>
         );
 
@@ -155,28 +246,17 @@ export const LessonViewer = ({
             <div className="flex justify-center mb-4">
               <Button
                 variant="outline"
+                className="gap-2"
                 onClick={() => {
                   if (isSpeaking) {
                     stopSpeaking();
                   } else {
-                    const fullDialogue = content.dialogueLines
-                      ?.map(line => line.text)
-                      .join('. ');
+                    const fullDialogue = content.dialogueLines?.map(line => line.text).join('. ');
                     if (fullDialogue) speak(fullDialogue);
                   }
                 }}
               >
-                {isSpeaking ? (
-                  <>
-                    <Pause className="w-4 h-4 mr-2" />
-                    Pause Audio
-                  </>
-                ) : (
-                  <>
-                    <Play className="w-4 h-4 mr-2" />
-                    Play Full Dialogue
-                  </>
-                )}
+                {isSpeaking ? <><Pause className="w-4 h-4" /> Pause Audio</> : <><Play className="w-4 h-4" /> Play Full Dialogue</>}
               </Button>
             </div>
             
@@ -187,20 +267,17 @@ export const LessonViewer = ({
                   initial={{ opacity: 0, x: idx % 2 === 0 ? -20 : 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: idx * 0.1 }}
-                  className={cn(
-                    "flex gap-3",
-                    idx % 2 === 1 && "flex-row-reverse"
-                  )}
+                  className={cn("flex gap-3", idx % 2 === 1 && "flex-row-reverse")}
                 >
                   <div className={cn(
-                    "w-10 h-10 rounded-full flex items-center justify-center text-lg shrink-0",
-                    idx % 2 === 0 ? "bg-primary/20" : "bg-secondary/20"
+                    "w-10 h-10 rounded-full flex items-center justify-center text-lg shrink-0 shadow-sm",
+                    idx % 2 === 0 ? "bg-primary/20" : "bg-accent/60"
                   )}>
                     {line.speaker === 'A' ? '👤' : '👩'}
                   </div>
                   <Card className={cn(
-                    "max-w-[80%]",
-                    idx % 2 === 0 ? "bg-primary/5" : "bg-secondary/5"
+                    "max-w-[80%] border-0 shadow-sm",
+                    idx % 2 === 0 ? "bg-primary/5" : "bg-accent/30"
                   )}>
                     <CardContent className="p-3">
                       <div className="flex items-start gap-2">
@@ -208,12 +285,7 @@ export const LessonViewer = ({
                           <p className="font-medium">{line.text}</p>
                           <p className="text-sm text-muted-foreground">{line.translation}</p>
                         </div>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="h-8 w-8 shrink-0"
-                          onClick={() => speak(line.text)}
-                        >
+                        <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0" onClick={() => speak(line.text)}>
                           <Volume2 className="w-4 h-4" />
                         </Button>
                       </div>
@@ -256,6 +328,7 @@ export const LessonViewer = ({
       case 'grammar': return '✏️';
       case 'dialogue': return '💬';
       case 'exercise': return '🎯';
+      case 'conjugation': return '🔄';
       case 'summary': return '🎉';
       default: return '📄';
     }
@@ -266,7 +339,7 @@ export const LessonViewer = ({
       {/* Header */}
       <div className="mb-6">
         <div className="flex items-center gap-2 mb-2">
-          <span className="px-2 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+          <span className={cn("level-badge", `level-${level.toLowerCase()}`)}>
             {level}
           </span>
           <span className="text-muted-foreground">•</span>
@@ -275,9 +348,7 @@ export const LessonViewer = ({
           </span>
         </div>
         <h1 className="text-2xl font-display font-bold mb-2">{title}</h1>
-        {description && (
-          <p className="text-muted-foreground">{description}</p>
-        )}
+        {description && <p className="text-muted-foreground">{description}</p>}
         <Progress value={progress} className="mt-4 h-2" />
       </div>
 
@@ -288,19 +359,17 @@ export const LessonViewer = ({
             key={section.id}
             onClick={() => setCurrentSectionIndex(idx)}
             className={cn(
-              "flex items-center gap-2 px-3 py-2 rounded-full text-sm whitespace-nowrap transition-colors",
+              "flex items-center gap-2 px-3 py-2 rounded-full text-sm whitespace-nowrap transition-all duration-200 border",
               idx === currentSectionIndex
-                ? "bg-primary text-primary-foreground"
+                ? "bg-primary text-primary-foreground border-primary shadow-sm"
                 : completedSections.has(idx)
-                  ? "bg-success/10 text-success"
-                  : "bg-muted hover:bg-muted/80"
+                  ? "bg-success/10 text-success border-success/20"
+                  : "bg-card border-border hover:border-primary/30 hover:bg-muted/50"
             )}
           >
             <span>{getSectionIcon(section.section_type)}</span>
             <span>{section.title || section.section_type}</span>
-            {completedSections.has(idx) && (
-              <CheckCircle2 className="w-4 h-4" />
-            )}
+            {completedSections.has(idx) && <CheckCircle2 className="w-4 h-4" />}
           </button>
         ))}
       </div>
@@ -313,11 +382,13 @@ export const LessonViewer = ({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
         >
-          <Card>
-            <CardContent className="p-6">
+          <Card className="border-border/50 shadow-sm">
+            <CardContent className="p-6 md:p-8">
               {currentSection?.title && currentSection.section_type !== 'summary' && (
-                <h2 className="text-xl font-display font-semibold mb-4 flex items-center gap-2">
-                  <span>{getSectionIcon(currentSection.section_type)}</span>
+                <h2 className="text-xl font-display font-semibold mb-5 flex items-center gap-2">
+                  <span className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-sm">
+                    {getSectionIcon(currentSection.section_type)}
+                  </span>
                   {currentSection.title}
                 </h2>
               )}
@@ -329,18 +400,11 @@ export const LessonViewer = ({
 
       {/* Navigation */}
       <div className="flex justify-between mt-6">
-        <Button
-          variant="outline"
-          onClick={handlePrevSection}
-          disabled={currentSectionIndex === 0}
-        >
-          <ChevronLeft className="w-5 h-5 mr-2" />
-          Previous
+        <Button variant="outline" onClick={handlePrevSection} disabled={currentSectionIndex === 0}>
+          <ChevronLeft className="w-5 h-5 mr-2" /> Previous
         </Button>
-        <Button
-          onClick={handleNextSection}
-        >
-          {isLastSection ? 'Complete' : 'Next'}
+        <Button onClick={handleNextSection} variant={isLastSection ? "hero" : "default"}>
+          {isLastSection ? '🎉 Complete' : 'Next'}
           <ChevronRight className="w-5 h-5 ml-2" />
         </Button>
       </div>
