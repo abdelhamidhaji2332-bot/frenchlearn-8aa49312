@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, Volume2, Star, Bookmark, ChevronRight, Shuffle, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { useNavigate } from "react-router-dom";
 
 interface VocabularyWord {
   id: string;
@@ -47,6 +48,7 @@ const categories = [
 ];
 
 const Vocabulary = () => {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [words, setWords] = useState<VocabularyWord[]>([]);
   const [loading, setLoading] = useState(true);
@@ -141,7 +143,7 @@ const Vocabulary = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <Button variant="outline" className="h-auto py-4 flex flex-col gap-2 hover:bg-primary/10">
+            <Button variant="outline" className="h-auto py-4 flex flex-col gap-2 hover:bg-primary/10" onClick={() => navigate("/flashcards")}>
               <Shuffle className="w-5 h-5" />
               <span>Flashcards</span>
             </Button>
