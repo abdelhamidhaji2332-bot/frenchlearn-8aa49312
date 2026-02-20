@@ -19,6 +19,8 @@ import Media from "./pages/Media";
 import Stories from "./pages/Stories";
 import Settings from "./pages/Settings";
 import Flashcards from "./pages/Flashcards";
+import Games from "./pages/Games";
+import Leaderboard from "./pages/Leaderboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -46,6 +48,8 @@ const App = () => (
             <Route path="/stories" element={<Stories />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/flashcards" element={<Flashcards />} />
+            <Route path="/games" element={<Games />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
