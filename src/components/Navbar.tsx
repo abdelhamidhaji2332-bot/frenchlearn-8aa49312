@@ -13,8 +13,9 @@ export const Navbar = () => {
   const navItems = [
     { href: "/", label: "Accueil", labelEn: "Home" },
     { href: "/levels", label: "Niveaux", labelEn: "Levels" },
-    { href: "/grammar", label: "Grammaire", labelEn: "Grammar" },
     { href: "/vocabulary", label: "Vocabulaire", labelEn: "Vocabulary" },
+    { href: "/games", label: "Jeux", labelEn: "Games" },
+    { href: "/leaderboard", label: "Classement", labelEn: "Leaderboard" },
   ];
 
   const handleSignOut = async () => {
