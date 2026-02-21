@@ -167,7 +167,7 @@ const TimedChallenge = () => {
           )}>
             <CardContent className="p-8">
               <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Translate to English</p>
-              <h3 className="text-4xl font-display font-bold text-primary">{words[currentIndex]?.french}</h3>
+              <h3 className="text-2xl sm:text-4xl font-display font-bold text-primary">{words[currentIndex]?.french}</h3>
               {words[currentIndex]?.pronunciation && (
                 <p className="text-sm text-muted-foreground mt-1">[{words[currentIndex].pronunciation}]</p>
               )}
@@ -304,12 +304,12 @@ const MemoryGame = () => {
         <span className="text-sm text-muted-foreground">Matches: {matches}/{totalPairs}</span>
         <span className="text-sm text-muted-foreground">Moves: {moves}</span>
       </div>
-      <div className="grid grid-cols-3 md:grid-cols-4 gap-3">
+      <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 sm:gap-3">
         {cards.map(card => (
           <motion.button
             key={card.id}
             className={cn(
-              "aspect-square rounded-xl border-2 flex items-center justify-center p-2 text-center transition-all duration-200 text-sm font-medium",
+              "aspect-square rounded-lg sm:rounded-xl border-2 flex items-center justify-center p-1.5 sm:p-2 text-center transition-all duration-200 text-xs sm:text-sm font-medium",
               card.isMatched
                 ? "bg-success/10 border-success/30 text-success"
                 : card.isFlipped
@@ -380,12 +380,12 @@ const Games = () => {
               <Gamepad2 className="w-4 h-4" />
               Game Mode
             </div>
-            <h1 className="text-4xl md:text-5xl font-display font-bold mb-3">Jeux Éducatifs</h1>
-            <p className="text-lg text-muted-foreground">Learn French while having fun!</p>
+            <h1 className="text-2xl sm:text-4xl md:text-5xl font-display font-bold mb-3">Jeux Éducatifs</h1>
+            <p className="text-sm sm:text-lg text-muted-foreground">Learn French while having fun!</p>
           </motion.div>
 
           {!activeGame ? (
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
               {games.map((game, idx) => (
                 <motion.div
                   key={game.id}
