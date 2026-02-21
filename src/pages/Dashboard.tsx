@@ -82,7 +82,7 @@ const Dashboard = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      <main className="pt-20 pb-12 px-4">
+      <main className="pt-20 pb-12 px-3 sm:px-4">
         <div className="container mx-auto max-w-6xl">
           {/* Welcome Header */}
           <motion.div
@@ -90,7 +90,7 @@ const Dashboard = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <h1 className="text-3xl md:text-4xl font-display font-bold mb-2">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold mb-2">
               Bonjour, {username}! 👋
             </h1>
             <p className="text-muted-foreground">
@@ -99,7 +99,7 @@ const Dashboard = () => {
           </motion.div>
 
           {/* Stats Row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
             <StatCard
               icon={<span className="font-display font-bold text-primary-foreground">{currentLevel}</span>}
               iconBg="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground"
@@ -134,7 +134,7 @@ const Dashboard = () => {
             />
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-6 sm:gap-8">
             {/* Main Content */}
             <div className="md:col-span-2 space-y-6">
               {/* Level Progress */}

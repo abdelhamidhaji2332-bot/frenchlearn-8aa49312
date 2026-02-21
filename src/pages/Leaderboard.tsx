@@ -76,7 +76,7 @@ const Leaderboard = () => {
           {/* Top 3 Podium */}
           {!isLoading && entries.length >= 3 && (
             <motion.div
-              className="grid grid-cols-3 gap-3 mb-8"
+              className="grid grid-cols-3 gap-2 sm:gap-3 mb-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
@@ -97,20 +97,20 @@ const Leaderboard = () => {
                       "w-full text-center overflow-hidden",
                       isFirst ? "border-yellow-400/50 bg-yellow-400/5" : "border-border/50"
                     )}>
-                      <CardContent className="p-4 pt-6">
+                      <CardContent className="p-2 pt-4 sm:p-4 sm:pt-6">
                         <div className="mb-2">{rankIcons[idx]}</div>
                         <div className={cn(
-                          "w-14 h-14 rounded-full mx-auto mb-2 flex items-center justify-center font-bold text-lg",
+                          "w-10 h-10 sm:w-14 sm:h-14 rounded-full mx-auto mb-2 flex items-center justify-center font-bold text-sm sm:text-lg",
                           isFirst
                             ? "bg-gradient-to-br from-yellow-400 to-amber-500 text-black"
                             : "bg-gradient-to-br from-primary to-primary/80 text-primary-foreground"
                         )}>
                           {(entry.username || "?").charAt(0).toUpperCase()}
                         </div>
-                        <p className="font-semibold text-sm truncate">{entry.username || "Anonymous"}</p>
-                        <p className="text-xs text-muted-foreground">{entry.level}</p>
+                        <p className="font-semibold text-xs sm:text-sm truncate">{entry.username || "Anonymous"}</p>
+                        <p className="text-[10px] sm:text-xs text-muted-foreground">{entry.level}</p>
                         <p className={cn(
-                          "text-lg font-bold mt-1",
+                          "text-sm sm:text-lg font-bold mt-1",
                           isFirst ? "text-yellow-400" : "text-primary"
                         )}>
                           {entry.xp_points?.toLocaleString() || 0} XP

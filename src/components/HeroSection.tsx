@@ -5,14 +5,14 @@ import { ArrowRight, Play, Star, Users, BookOpen } from "lucide-react";
 
 export const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-hero-pattern pt-16">
+    <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden bg-hero-pattern pt-20 pb-12 px-4">
       {/* Gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background/50" />
       <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-secondary/5" />
 
       {/* Floating decorative elements */}
       <motion.div
-        className="absolute top-20 left-10 w-64 h-64 rounded-full bg-secondary/10 blur-3xl"
+        className="absolute top-20 left-4 md:left-10 w-40 md:w-64 h-40 md:h-64 rounded-full bg-secondary/10 blur-3xl"
         animate={{
           y: [0, -30, 0],
           scale: [1, 1.1, 1],
@@ -20,7 +20,7 @@ export const HeroSection = () => {
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-primary/10 blur-3xl"
+        className="absolute bottom-20 right-4 md:right-10 w-48 md:w-96 h-48 md:h-96 rounded-full bg-primary/10 blur-3xl"
         animate={{
           y: [0, 30, 0],
           scale: [1.1, 1, 1.1],
@@ -35,7 +35,7 @@ export const HeroSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="inline-flex items-center gap-2 bg-card/60 backdrop-blur-sm border border-border/50 rounded-full px-4 py-2 mb-8"
+            className="inline-flex items-center gap-2 bg-card/60 backdrop-blur-sm border border-border/50 rounded-full px-3 py-1.5 sm:px-4 sm:py-2 mb-6 sm:mb-8"
           >
             <div className="flex -space-x-2">
               <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-xs text-primary-foreground">A</div>
@@ -49,7 +49,7 @@ export const HeroSection = () => {
 
           {/* Main heading */}
           <motion.h1
-            className="text-5xl md:text-7xl lg:text-8xl font-display font-bold mb-6 leading-tight"
+            className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-bold mb-4 sm:mb-6 leading-tight"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
@@ -60,7 +60,7 @@ export const HeroSection = () => {
 
           {/* Subheading */}
           <motion.p
-            className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto"
+            className="text-base sm:text-xl md:text-2xl text-muted-foreground mb-6 sm:mb-8 max-w-2xl mx-auto px-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
@@ -89,7 +89,7 @@ export const HeroSection = () => {
 
           {/* Stats */}
           <motion.div
-            className="grid grid-cols-3 gap-8 max-w-lg mx-auto"
+            className="grid grid-cols-3 gap-4 sm:gap-8 max-w-lg mx-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
@@ -123,7 +123,7 @@ export const HeroSection = () => {
 
         {/* Scroll indicator */}
         <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 hidden sm:block"
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >

@@ -43,7 +43,7 @@ const features = [
 
 export const FeaturesGrid = () => {
   return (
-    <section className="py-20 px-4 bg-muted/30">
+    <section className="py-12 sm:py-20 px-4 bg-muted/30">
       <div className="container mx-auto max-w-6xl">
         <motion.div
           className="text-center mb-16"
@@ -51,15 +51,15 @@ export const FeaturesGrid = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-display font-bold mb-3 sm:mb-4">
             Tout ce dont vous avez besoin
           </h2>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-base sm:text-xl text-muted-foreground">
             Everything you need to master French
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}

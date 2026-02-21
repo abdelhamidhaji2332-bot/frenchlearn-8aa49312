@@ -17,7 +17,7 @@ interface LevelSelectorProps {
 
 export const LevelSelector = ({ onSelectLevel }: LevelSelectorProps) => {
   return (
-    <section className="py-20 px-4">
+    <section className="py-12 sm:py-20 px-4">
       <div className="container mx-auto max-w-6xl">
         <motion.div
           className="text-center mb-16"
@@ -25,15 +25,15 @@ export const LevelSelector = ({ onSelectLevel }: LevelSelectorProps) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-display font-bold mb-3 sm:mb-4">
             Choisissez votre niveau
           </h2>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-base sm:text-xl text-muted-foreground">
             Choose your level and start your French learning journey
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-6">
           {levels.map((level, index) => (
             <motion.div
               key={level.id}
@@ -44,11 +44,11 @@ export const LevelSelector = ({ onSelectLevel }: LevelSelectorProps) => {
             >
               <Button
                 variant="glass"
-                className="w-full h-auto flex-col py-8 group hover-lift"
+                className="w-full h-auto flex-col py-5 sm:py-8 group hover-lift"
                 onClick={() => onSelectLevel?.(level.id)}
               >
                 <div
-                  className={`w-16 h-16 rounded-full ${level.color} flex items-center justify-center mb-4 text-white text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform`}
+                  className={`w-12 h-12 sm:w-16 sm:h-16 rounded-full ${level.color} flex items-center justify-center mb-3 sm:mb-4 text-white text-xl sm:text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform`}
                 >
                   {level.name}
                 </div>

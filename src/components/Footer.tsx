@@ -3,11 +3,11 @@ import { motion } from "framer-motion";
 
 export const Footer = () => {
   return (
-    <footer className="bg-primary text-primary-foreground py-16 px-4">
+    <footer className="bg-primary text-primary-foreground py-10 sm:py-16 px-4">
       <div className="container mx-auto max-w-6xl">
-        <div className="grid md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
           {/* Brand */}
-          <div className="md:col-span-1">
+          <div className="col-span-2 md:col-span-1">
             <motion.div
               className="flex items-center gap-3 mb-4"
               whileHover={{ scale: 1.02 }}

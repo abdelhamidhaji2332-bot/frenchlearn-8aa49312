@@ -55,7 +55,7 @@ const Index = () => {
               <FeaturesGrid />
               
               {/* Daily Motivation Section */}
-              <section className="py-20 px-4 relative overflow-hidden">
+              <section className="py-12 sm:py-20 px-4 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-secondary/5 to-primary/5" />
                 <div className="container mx-auto max-w-4xl relative z-10">
                   <motion.div
@@ -67,13 +67,13 @@ const Index = () => {
                     <span className="text-secondary font-medium mb-4 block">
                       Mot du jour
                     </span>
-                    <h2 className="text-6xl md:text-8xl font-display font-bold mb-4">
+                    <h2 className="text-4xl sm:text-6xl md:text-8xl font-display font-bold mb-4">
                       Courage
                     </h2>
-                    <p className="text-2xl text-muted-foreground mb-2">
+                    <p className="text-lg sm:text-2xl text-muted-foreground mb-2">
                       /ku.ʁaʒ/
                     </p>
-                    <p className="text-xl text-muted-foreground mb-8">
+                    <p className="text-base sm:text-xl text-muted-foreground mb-6 sm:mb-8 px-2">
                       Bravery, courage — the ability to face difficulty
                     </p>
                     <div className="flex items-center justify-center gap-4">
@@ -93,10 +93,10 @@ const Index = () => {
               </section>
 
               {/* CTA Section */}
-              <section className="py-20 px-4">
+              <section className="py-12 sm:py-20 px-4">
                 <div className="container mx-auto max-w-4xl">
                   <motion.div
-                    className="bg-gradient-to-br from-primary to-primary/80 rounded-3xl p-12 text-center text-primary-foreground relative overflow-hidden"
+                    className="bg-gradient-to-br from-primary to-primary/80 rounded-2xl sm:rounded-3xl p-6 sm:p-12 text-center text-primary-foreground relative overflow-hidden"
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
@@ -106,15 +106,15 @@ const Index = () => {
                     <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-card/10 blur-3xl" />
                     
                     <div className="relative z-10">
-                      <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
+                      <h2 className="text-2xl sm:text-4xl md:text-5xl font-display font-bold mb-3 sm:mb-4">
                         Prêt à commencer?
                       </h2>
-                      <p className="text-xl text-primary-foreground/80 mb-8">
+                      <p className="text-base sm:text-xl text-primary-foreground/80 mb-6 sm:mb-8">
                         Join thousands of learners mastering French today.
                       </p>
                       <Link
                         to="/auth"
-                        className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-glow transition-all hover:-translate-y-1"
+                        className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-semibold text-sm sm:text-lg shadow-lg hover:shadow-glow transition-all hover:-translate-y-1"
                       >
                         Créer un compte gratuit
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
