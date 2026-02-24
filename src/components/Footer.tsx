@@ -10,8 +10,8 @@ export const Footer = () => {
           <div className="col-span-2 md:col-span-1">
             <motion.div
               className="flex items-center gap-3 mb-4"
-              whileHover={{ scale: 1.02 }}
-            >
+              whileHover={{ scale: 1.02 }}>
+
               <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center">
                 <span className="text-2xl font-display font-bold text-secondary-foreground">F</span>
               </div>
@@ -58,7 +58,7 @@ export const Footer = () => {
 
         <div className="mt-12 pt-8 border-t border-primary-foreground/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-primary-foreground/60">
-            © 2024 Français. Tous droits réservés. All rights reserved.
+
           </p>
           <div className="flex items-center gap-2">
             <div className="w-8 h-1 bg-primary rounded-full" />
@@ -67,6 +67,6 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>);
+
 };
