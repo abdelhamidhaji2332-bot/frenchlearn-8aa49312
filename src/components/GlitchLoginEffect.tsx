@@ -34,7 +34,7 @@ export const GlitchLoginEffect = ({ isActive, onComplete }: GlitchLoginEffectPro
     }, 4500);
 
     // Progress bar animation
-    let progressInterval: NodeJS.Timeout;
+    let progressInterval: ReturnType<typeof setInterval>;
     if (isActive) {
       progressInterval = setInterval(() => {
         setProgress((prev) => {

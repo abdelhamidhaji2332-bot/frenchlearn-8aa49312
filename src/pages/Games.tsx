@@ -34,7 +34,7 @@ const TimedChallenge = () => {
   const [options, setOptions] = useState<string[]>([]);
   const [feedback, setFeedback] = useState<"correct" | "wrong" | null>(null);
   const [loading, setLoading] = useState(true);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     loadWords();
